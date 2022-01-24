@@ -16,6 +16,8 @@ html {
 
 body {
     font-size: 1.6rem;
+    color:#B0B8B4FF;
+    background: #184A45FF;
 }
 html, body {
     overflow: hidden;
@@ -25,19 +27,38 @@ html, body {
     max-width: 1140px;
     width: 90%;
     margin: 0 auto;
-    background: #D3D0CBFF;
     position: relative;
 }
 .contentWrap{
     padding-bottom: 20px;
 }
+body,
+ul,
+h1,
+h2,
+h3,
+p,
+li,
+a,
+img,
+figure{
+    margin: 0;
+    padding: 0;
+}
 /* start */
+header{
+    background: #FC766AFF;
+    color:#184A45FF;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
 header>li{
     list-style-type: none;
 }
 li>a{
     text-decoration: none;
     margin-right: 20px;
+    color:#184A45FF;
 }
 
 .headFlex{
