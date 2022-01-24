@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" integrity="sha384-v8BU367qNbs/aIZIxuivaU55N5GPF89WBerHoGA4QTcbUjYiLQtKdrfXnqAcXyTv" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Walter+Turncoat&display=swap" rel="stylesheet">
+    <!-- setup link css, style1 for level1-->
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>MiniGame - Master Mind</title>
+</head>
+<body class="wrapper">
+    <div class="contentWrap">
+        <section class="headerLayout">
+            <div class="firstScene">
+                <h2 class="hWord">Mini Master Mind</h2>
+                <p class="hintWord">Help: Find the correct answer while attempt the least tries💻</p>
+                <button onclick="myStartGame(); return false;" class="firstSceneButton">Start Game</button>
+            </div>
+        </section>
+        <section class="secondScene">
+            <form action="" method="GET">
+                <fieldset>
+                    <legend>Find the hidden code</legend>
+                    <div class="wrapFlex">
+                        <div class="flexBox">
+                            <input type="range" min="0" max="1" value="0" onchange="updateTextInput(this.value,'textInput1');">
+                            <input type="text" id="textInput1" value="0" disabled>
+                        </div>
+                        <div class="flexBox">
+                            <input type="range" min="0" max="1" value="0" onchange="updateTextInput(this.value,'textInput2');">
+                            <input type="text" id="textInput2" value="0" disabled>
+                        </div>
+                        <div class="flexBox">
+                        <input type="range" min="0" max="1" value="0" onchange="updateTextInput(this.value,'textInput3');">
+                        <input type="text" id="textInput3" value="0" disabled>
+                        </div>
+                        <div class="flexBox">
+                        <input type="range" min="0" max="1" value="0" onchange="updateTextInput(this.value,'textInput4');">
+                        <input type="text" id="textInput4" value="0" disabled>
+                        </div>
+                    </div>
+                    <!--the browser will submit the form to the current URL-->
+                    <div class="resultLayout">
+                        <p>Your Answer:</p>
+                        <p id="userAnswer">0000</p>
+                        <button id="submitLayout" onclick="mySubmitFunction(); return false;">Submit</button>
+                        <p class="hint" onclick="myHintFunction(); return false;">🌟Hint</p>
+                </fieldset>
+            </form>
+            <div id="modalBackground">
+            <div id="modalContent">
+                <span class="close">&times;</span>
+                <p class="hintWord">Help: Find the correct answer while attempt the least tries💻</p>
+                <p class="hintWord">Click anywhere outside the box to close this :D</p>
+            </div>
+            </div>
+            <div id="resultStack">
+                <p id="correctd"></p>
+                <p id="incorrectd"></p>
+                <p id="result"></p>
+                <p id="tries"></p>
+                <div class="resultOverflow"></div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <a href="https://victorkaiwong.com/" target="_blank" onclick="myEasterEggFunction(); return false;"><span>Copyright <i class="far fa-copyright"></i> 2022 Victor Wong</span></a>
+    </footer>
+
+
+    <script src='https://code.jquery.com/jquery-3.4.0.min.js' integrity='sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=' crossorigin='anonymous'></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
