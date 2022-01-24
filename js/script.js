@@ -21,7 +21,7 @@ mathApp.sign = [
 
 
 mathApp.start = $('.javaStartButton').on('click',function(){
-    console.log('tests');
+    $('.javaStartHUD').hide();
 })
 
 

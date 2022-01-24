@@ -29,9 +29,23 @@ html, body {
     margin: 0 auto;
     position: relative;
 }
-.contentWrap{
-    padding-bottom: 20px;
+.pageFix{
+    position: relative;
+    min-height: 100vh;
 }
+  
+.allWrapping{
+    padding-bottom: 3rem;
+}
+
+footer{
+    width: 100%;
+    height: 3rem;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+  
 body,
 ul,
 h1,
@@ -52,7 +66,7 @@ header{
     padding-top: 10px;
     padding-bottom: 20px;
 }
-header>li{
+li{
     list-style-type: none;
 }
 li>a{
@@ -65,4 +79,9 @@ li>a{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+}
+
+footer>a{
+    text-decoration: none;
+    color:#B0B8B4FF;
 }
