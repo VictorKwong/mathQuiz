@@ -1,5 +1,18 @@
-.javaStartHUD{
+.javaStartHUD,
+.javaGameHUD{
     text-align: center;
     margin-top:30px;
-    
+}
+
+.javaStartHUD>p,
+.javaGameHUD>p,
+.javaEndHUD{
+    margin: 10px 0 10px;
+}
+
+.javaGameHUD,
+.javaUserNext,
+.javaEndHUD{
+    display:none;
+
 }
