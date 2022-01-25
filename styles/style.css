@@ -18,6 +18,12 @@ body {
     font-size: 1.6rem;
     color:#B0B8B4FF;
     background: #184A45FF;
+    font-family: 'Chau Philomene One', sans-serif;
+}
+
+input[type="text"],
+input{
+    font-family: 'Chau Philomene One', sans-serif;
 }
 html, body {
     overflow: hidden;

@@ -14,5 +14,11 @@
 .javaUserNext,
 .javaEndHUD{
     display:none;
+}
 
+.javaStartHUD,
+.javaGameHUD,
+.javaEndHUD{
+    border: 2px #FC766AFF solid;
+    min-height: 450px;
 }

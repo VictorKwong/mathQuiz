@@ -102,7 +102,7 @@ mathApp.Submit = $('.javaUserSubmit').on('click',function(){
     console.log(isNaN(userAnswer));
     console.log(mathApp.computerAnswer);
     if (userAnswer === "" || isNaN(userAnswer)){
-        $('.javaGameResult').html('Please enter the answer :)');
+        $('.javaGameResult').show().html('Please enter the answer :)');
     }else{
     switch(userAnswer){
         case mathApp.computerAnswer:
@@ -165,6 +165,56 @@ mathApp.Restart = $('.javaUserReplay').on('click',function(){
     $('.javaUserScore').html(`Score: ${mathApp.TotalScore * 100}`);
 })
 
+
+//Audio Part
+$('.javaStartButton, .javaUserSubmit, .javaUserReplay').mouseenter(function(){
+    audioHover = document.getElementById('javaMStartHover');
+    audioHover.volume = 0.15;
+    audioHover.play();
+})
+
+$('.javaStartButton, .javaUserSubmit, .javaUserReplay').mouseleave(function(){
+    audioHover = document.getElementById('javaMStartHover');
+    audioHover.pause();
+    audioHover.currentTime = 0;
+})
+
+$('.javaStartButton').click(function() {
+    audioClick = document.getElementById('javaMStart');
+    audioClick.volume = 0.15;
+    audioClick.play();
+    audioBGM = document.getElementById('javaMBgm');
+    audioBGM.volume = 0.033;
+    audioBGM.loop = true;
+    setTimeout(function(){audioBGM.play()}, 2500);
+})
+
+$('.javaUserSubmit, .javaUserReplay').click(function() {
+    audioClick = document.getElementById('javaMStart');
+    audioClick.volume = 0.15;
+    audioClick.play();
+})
+
+$('.javaUserReplay').click(function() {
+    audioBGM = document.getElementById('javaMBgm');
+    const fadeAudio = setInterval(() => {
+        if (audioBGM.volume !== 0) {
+          audioBGM.volume -= 0.001
+          audioBGM.volume = audioBGM.volume.toFixed(4)
+          console.log(audioBGM.volume);
+        }
+        if (audioBGM.volume < 0.0001) {
+            audioBGM.pause();
+            audioBGM.currentTime = 0;
+          clearInterval(fadeAudio);
+        }
+        $('.javaStartButton').click(function() {
+            audioBGM.volume = 0.033;
+            clearInterval(fadeAudio);
+        })
+      }, 50);
+
+})
 
 
 mathApp.init = function(){
