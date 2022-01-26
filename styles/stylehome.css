@@ -7,3 +7,9 @@ li{
     padding-bottom: 20px;
     border-radius: 15px 15px 0 0;
 }
+
+.homeList{
+    text-align: center;
+    margin-top: 30px;
+    line-height: 50px;
+}
