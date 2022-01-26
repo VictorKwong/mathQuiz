@@ -23,19 +23,15 @@ mathApp.easyCalc = function(var1,var2,sign){
     switch(sign){
         case '+':
             ans = var1 + var2;
-            console.log(ans);
             return Number(ans);
         case '-':
             ans = var1 - var2;
-            console.log(ans);
             return Number(ans);
         case '*':
             ans = var1 * var2;
-            console.log(ans);
             return Number(ans);
         case '/':
             ans = var1 / var2;
-            console.log(ans);
             if(!Number.isInteger(ans)){
                 ans = ans.toFixed(1);
             }
@@ -84,6 +80,8 @@ mathApp.scoreBoard = function(){
 }
 
 mathApp.start = $('.javaStartButton').on('click',function(){
+    mathApp.TotalQuestion++;
+    $('.javaQuestionTrack').html(`Question ${mathApp.TotalQuestion}:`)
     $('.javaUserAnswer').val('');
     $('.javaStartHUD, .javaGameResult').hide();
     $('.javaGameHUD').show();
@@ -92,15 +90,12 @@ mathApp.start = $('.javaStartButton').on('click',function(){
     let questionSign = mathApp.RandomSign(mathApp.easySign)
     $('.javaGameQuestion').show().html(`${x} ${questionSign.visual} ${y} = <span>?</span>`);
     mathApp.computerAnswer = mathApp.easyCalc(x,y,questionSign.factor);
-    mathApp.TotalQuestion++;
+    
     // javaGameQuestion
 })
 
 mathApp.Submit = $('.javaUserSubmit').on('click',function(){
     let userAnswer = parseInt($('.javaUserAnswer').val().trim())
-    console.log(userAnswer);
-    console.log(isNaN(userAnswer));
-    console.log(mathApp.computerAnswer);
     if (userAnswer === "" || isNaN(userAnswer)){
         $('.javaGameResult').show().html('Please enter the answer :)');
     }else{
@@ -125,6 +120,7 @@ mathApp.Submit = $('.javaUserSubmit').on('click',function(){
 
 mathApp.Next = $('.javaUserNext').on('click',function(){
     mathApp.TotalQuestion++;
+    $('.javaQuestionTrack').html(`Question ${mathApp.TotalQuestion}:`)
     $('.javaUserAnswer').val('');
     $('.javaUserNext, .javaGameResult').hide();
     $('.javaUserSubmit').show();
@@ -134,7 +130,6 @@ mathApp.Next = $('.javaUserNext').on('click',function(){
         $('.javaResultScore').hide().delay().slideDown(500).html(`Your Score: ${mathApp.TotalScore * 100}`);
     }else{
     let ranProbability = Math.random();
-    console.log(ranProbability);
 
     switch(true){
         case (ranProbability <= 0.5):
@@ -167,13 +162,13 @@ mathApp.Restart = $('.javaUserReplay').on('click',function(){
 
 
 //Audio Part
-$('.javaStartButton, .javaUserSubmit, .javaUserReplay').mouseenter(function(){
+$('.javaStartButton, .javaUserSubmit, .javaUserReplay, .javaUserNext').mouseenter(function(){
     audioHover = document.getElementById('javaMStartHover');
     audioHover.volume = 0.15;
     audioHover.play();
 })
 
-$('.javaStartButton, .javaUserSubmit, .javaUserReplay').mouseleave(function(){
+$('.javaStartButton, .javaUserSubmit, .javaUserReplay, .javaUserNext').mouseleave(function(){
     audioHover = document.getElementById('javaMStartHover');
     audioHover.pause();
     audioHover.currentTime = 0;
@@ -191,6 +186,8 @@ $('.javaStartButton').click(function() {
 
 $('.javaUserSubmit, .javaUserReplay').click(function() {
     audioClick = document.getElementById('javaMStart');
+    audioClick.pause();
+    audioClick.currentTime = 0;
     audioClick.volume = 0.15;
     audioClick.play();
 })
@@ -201,7 +198,6 @@ $('.javaUserReplay').click(function() {
         if (audioBGM.volume !== 0) {
           audioBGM.volume -= 0.001
           audioBGM.volume = audioBGM.volume.toFixed(4)
-          console.log(audioBGM.volume);
         }
         if (audioBGM.volume < 0.0001) {
             audioBGM.pause();

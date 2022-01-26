@@ -72,13 +72,13 @@ header{
     padding-top: 10px;
     padding-bottom: 20px;
 }
-li{
+.headFlex>li{
     list-style-type: none;
 }
-li>a{
+.headFlex>li>a{
     text-decoration: none;
-    margin-right: 20px;
     color:#184A45FF;
+    padding: 10px 20px 0;
 }
 
 .headFlex{
