@@ -2,10 +2,10 @@
 
 Design Documents
 
-1.Goal:
+1. Goal:
   - Build a math quiz website (+ - *, / is a bit too hard without a calculator xD). It is a prototype website to see how it works.
 
-2.Features require:
+2. Features require:
   - a welcome page
   - math quiz game page
   - reference page
@@ -14,11 +14,11 @@ Design Documents
   - a bit CSS and design
   - Responsive design
 
-3.Tools:
+3. Tools:
   - jQuery
   - Node.js
   - Github
   - HTML, CSS, Javascript
 
-4.Credit:
+4. Credit:
   - Juno College - https://junocollege.com/
