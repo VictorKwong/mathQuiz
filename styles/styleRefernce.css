@@ -17,3 +17,18 @@ li{
     padding-bottom: 20px;
     border-radius: 15px 15px 0 0;
 }
+
+.headFlex>li:nth-child(2)>a,
+.headFlex>li:nth-child(1)>a{
+    border-radius: 15px 15px 0 0;
+    transition: 0.5s all ease-out;
+}
+
+.headFlex>li:nth-child(2)>a:hover,
+.headFlex>li:nth-child(1)>a:hover{
+    background: #B0B8B4FF;
+    padding-bottom: 18.3px;
+    border-radius: 15px 15px 0 0;
+    opacity: 0.8;
+    transition: 0.3s all ease-in;
+}

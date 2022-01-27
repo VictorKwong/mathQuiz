@@ -78,7 +78,7 @@ header{
 .headFlex>li>a{
     text-decoration: none;
     color:#184A45FF;
-    padding: 10px 20px 0;
+    padding: 10px 20px 20px;
 }
 
 .headFlex{
@@ -90,4 +90,10 @@ header{
 footer>a{
     text-decoration: none;
     color:#B0B8B4FF;
+}
+
+@media (max-width: 468px){
+    .headFlex{
+        margin-top: 20px;
+    }
 }
