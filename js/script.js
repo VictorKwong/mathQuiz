@@ -238,7 +238,7 @@ mathApp.Restart = $('.javaUserReplay').on('click',function(){
 //Audio Part
 $('.javaStartButton, .javaUserSubmit, .javaUserReplay, .javaUserNext').mouseenter(function(){
     audioHover = document.getElementById('javaMStartHover');
-    audioHover.volume = sfxVolume;
+    audioHover.volume = mathApp.sfxVolume;
     audioHover.play();
 })
 
@@ -250,10 +250,10 @@ $('.javaStartButton, .javaUserSubmit, .javaUserReplay, .javaUserNext').mouseleav
 
 $('.javaStartButton').click(function() {
     audioClick = document.getElementById('javaMStart');
-    audioClick.volume = 0.3;
+    audioClick.volume = mathApp.sfxVolume;
     audioClick.play();
     audioBGM = document.getElementById('javaMBgm');
-    audioBGM.volume = 0.03;
+    audioBGM.volume = mathApp.bgmVolume;
     audioBGM.loop = true;
     setTimeout(function(){audioBGM.play()}, 2500);
 })
@@ -262,27 +262,8 @@ $('.javaUserSubmit, .javaUserReplay').click(function() {
     audioClick = document.getElementById('javaMStart');
     audioClick.pause();
     audioClick.currentTime = 0;
-    audioClick.volume = sfxVolume;
+    audioClick.volume = mathApp.sfxVolume;
     audioClick.play();
-})
-
-$('.javaUserReplay').click(function() {
-    audioBGM = document.getElementById('javaMBgm');
-    const fadeAudio = setInterval(() => {
-        if (audioBGM.volume !== 0) {
-          audioBGM.volume -= 0.001
-          audioBGM.volume = audioBGM.volume.toFixed(4)
-        }
-        if (audioBGM.volume < 0.0001) {
-            audioBGM.pause();
-            audioBGM.currentTime = 0;
-          clearInterval(fadeAudio);
-        }
-        $('.javaStartButton').click(function() {
-            audioBGM.volume = 0.015;
-            clearInterval(fadeAudio);
-        })
-      }, 50);
 })
 
 mathApp.audioBGM = document.getElementById('javaMBgm');
@@ -319,7 +300,7 @@ $('#bgmDown').click(() => mathApp.adjustVolume('bgm', -0.05));
 $('#sfxUp').click(() => mathApp.adjustVolume('sfx', 0.05));
 $('#sfxDown').click(() => mathApp.adjustVolume('sfx', -0.05));
 
-$('#openSettings').on('click', function () {
+$('.openSettings').on('click', function () {
   $('#volumeOverlay').fadeIn(200);
 });
 
