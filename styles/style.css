@@ -15,16 +15,12 @@ html {
 }
 
 body {
-    font-size: 1.6rem;
-    color:#B0B8B4FF;
-    background: #184A45FF;
+    font-size: 1.8rem;
+    color: #F0F0F0;
+    background: #12332F;
     font-family: 'Chau Philomene One', sans-serif;
 }
 
-input[type="text"],
-input{
-    font-family: 'Chau Philomene One', sans-serif;
-}
 html, body {
     overflow: hidden;
 }
@@ -65,35 +61,607 @@ figure{
     margin: 0;
     padding: 0;
 }
-/* start */
-header{
-    background: #FC766AFF;
-    color:#184A45FF;
-    padding-top: 10px;
-    padding-bottom: 20px;
+
+/* Smooth collapse & show animation */
+/* ==========================
+   Transitions & Animations
+   ========================== */
+
+/* Smooth collapse & show animation */
+.transition-hide {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
-.headFlex>li{
-    list-style-type: none;
+.transition-hide.hide {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
 }
-.headFlex>li>a{
+
+/* Wave animation */
+.waveSVG {
+  width: 100%;
+  height: 60px;
+  margin-bottom: -7px;
+}
+.waveParallax > use {
+  animation: waveMove 18s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.waveParallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+.waveParallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+.waveParallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+.waveParallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+@keyframes waveMove {
+  0% { transform: translate3d(-90px, 0, 0); }
+  100% { transform: translate3d(85px, 0, 0); }
+}
+.mathHeaderWaves {
+  margin-bottom: -1px; /* Prevent gap below waves */
+  line-height: 0;       /* Avoid extra space */
+  display: block;
+}
+
+/* ==========================
+   Header Styles
+   ========================== */
+
+header {
+  background: linear-gradient(90deg, #184A45, #4CAF50);
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header .wrapper {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+header h1 {
+  font-family: 'Chalkboard SE', 'Comic Sans MS', cursive, sans-serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  color: #DFFFD6;
+  text-shadow:
+    1px 1px 0 #000000AA,
+    0 0 8px #4CAF50CC;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+header h1 a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+header h1 a:hover,
+header h1 a:focus {
+  color: #A1D490;
+  text-shadow: 0 0 12px #A1D490FF;
+  outline: none;
+}
+
+/* ==========================
+   HUD Containers (Start, Game, End)
+   ========================== */
+
+.javaStartHUD,
+.javaGameHUD,
+.javaEndHUD {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+  padding: 2rem 4rem;
+  min-height: 650px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 4px double #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.05),
+    0 8px 20px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 1.8rem;
+  line-height: 1.6;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
+  overflow-x: hidden;
+  overflow-y: auto; /* keeps vertical scrolling if needed */
+}
+
+.javaGameHUD,
+.javaUserNext,
+.javaEndHUD{
+    display:none;
+}
+
+.javaStartHUD p,
+.javaGameHUD p,
+.javaEndHUD p {
+  margin: 10px 0;
+}
+
+/* Chalk underline effect for HUD */
+.javaStartHUD::after,
+.javaGameHUD::after,
+.javaEndHUD::after {
+  content: "";
+  position: absolute;
+  left: 5%;
+  bottom: 20px;
+  width: 90%;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.7) 5%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.7) 95%
+  );
+  opacity: 0.3;
+  border-radius: 4px;
+  filter: blur(1px);
+}
+
+/* Hover glow effect on HUD containers */
+.javaStartHUD:hover,
+.javaGameHUD:hover,
+.javaEndHUD:hover {
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 255, 0.08),
+    0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================
+   Start Button Styles
+   ========================== */
+
+.javaStartButton {
+  font-family: 'Gloria Hallelujah', cursive;
+  background-color: #429321;
+  color: #ffffff;
+  border: none;
+  font-size: 3rem;
+  padding: 2rem 4rem;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow:
+    0 6px 0 #2a4b18,
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  transition:
+    background 0.5s ease,
+    transform 0.2s ease,
+    outline 0.2s ease,
+    box-shadow 0.1s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 2rem;
+  position: relative;
+}
+.javaStartButton:hover {
+  background-color: #96e6a1;
+  box-shadow:
+    0 4px 0 #2a4b18,
+    0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 2px #222;
+}
+.javaStartButton:focus {
+  outline: 3px solid #FFD700;
+  outline-offset: 4px;
+}
+.javaStartButton:active {
+  transform: translateY(6px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  background: #367c1c;
+}
+
+/* ==========================
+   Game HUD Layout Helpers
+   ========================== */
+
+.headFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.hudTopBar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.javaUserScore {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #b4ec51;
+  margin: 0;
+}
+
+.hudMain {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  position: relative; /* parent for absolute children */
+}
+
+.hudButtons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================
+   Game Buttons
+   ========================== */
+
+.javaGameHUD input[type="submit"],
+.javaGameHUD input[type="button"] {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 5px 0 #388E3C;
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+.javaGameHUD input[type="submit"]:hover,
+.javaGameHUD input[type="button"]:hover {
+  background-color: #45A049;
+  transform: translateY(-2px);
+}
+.javaGameHUD input[type="submit"]:focus,
+.javaGameHUD input[type="button"]:focus {
+  outline: 3px solid #FFC107;
+}
+.javaGameHUD input[type="submit"]:active,
+.javaGameHUD input[type="button"]:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.javaUserReplay {
+  padding: 30px 50px;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #388e3c;
+  transition: all 0.3s ease;
+}
+
+.javaUserReplay:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.javaUserReplay:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ==========================
+   Text Inputs
+   ========================== */
+
+.javaUserAnswer {
+  display: block;                  /* Make sure it takes up its own line */
+  margin: 1rem auto;               /* Center horizontally */
+  width: 80%;                      /* Responsive width */
+  max-width: 300px;                /* Prevent it from getting too wide */
+  padding: 1rem 1.5rem;            /* Spacious padding for better UX */
+  font-size: 1.6rem;               /* Larger, readable font */
+  border-radius: 10px;             /* Rounded corners */
+  border: 2px solid #a4c7a1;       /* Soft border */
+  background-color: #f9fff7;       /* Subtle chalkboard-compatible BG */
+  color: #12332F;                  /* Match your theme color */
+  text-align: center;              /* Center the user's text */
+  font-family: 'Comic Sans MS', 'Gloria Hallelujah', cursive, sans-serif;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);  /* Slight depth */
+  transition: all 0.3s ease;
+}
+
+.javaUserAnswer:focus {
+  outline: none;
+  border-color: #6bcf7e;
+  box-shadow: 0 0 0 4px rgba(107, 207, 126, 0.3);
+}
+
+/* ==========================
+   Game Result Message
+   ========================== */
+
+.javaGameResultWrapper {
+  min-height: 3rem; /* Reserve space so layout doesn't jump */
+  position: relative;
+}
+
+.javaGameResult {
+  position: absolute;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  min-width: 260px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* ==========================
+   Settings
+   ========================== */
+
+
+.settingsGear {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+.settingsGear:hover {
+  transform: rotate(60deg);
+}
+
+/* ==========================
+   Volume Control
+   ========================== */
+
+
+/* Fullscreen dimmed background */
+.volumeOverlayBackground {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 2000;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #4CAF50;
+  user-select: none;
+}
+
+
+/* Overlay (the whole background dimmer) */
+.volumeModalOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: 400px;
+  max-width: 90vw;
+  background-color: #12332F;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  color: #fff;
+  box-sizing: border-box;
+}
+
+/* Close (X) button top-left */
+.closeModal {
+  position: absolute;
+  top: 15px;
+  right: 15px; /* move to upper right */
+  font-size: 1.8rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.closeModal:hover {
+  color: #4CAF50; /* bright green on hover */
+  transform: scale(1.2);
+}
+
+/* Volume group container (label + controls) */
+.volumeGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+/* Label on left side */
+.volumeGroup > label {
+  flex: 1;
+  font-weight: 600;
+}
+
+/* Controls container: buttons and level */
+.volumeControls {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* The +/- buttons */
+.volumeBtn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 0 #2a4b18;
+  transition: all 0.15s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* Press-down effect */
+.volumeBtn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+/* Hover effect */
+.volumeBtn:hover {
+  background-color: #96e6a1;
+  color: #12332F;
+}
+
+/* The percentage text */
+#bgmLevel, #sfxLevel {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-family: monospace, monospace;
+  user-select: none;
+}
+
+/* Back button */
+.backBtn {
+  margin-top: 2.5rem;
+  width: 100%;
+  padding: 0.75rem 0;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 5px 0 #2a4b18;
+  transition: all 0.15s ease;
+}
+
+.backBtn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.backBtn:hover {
+  background-color: #96e6a1;
+  color: #12332F;
+}
+
+
+/* ==========================
+   End Content
+   ========================== */
+
+.endContent {
+  max-width: 500px;
+  width: 100%;
+}
+
+.endTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fdd835;
+}
+
+.endMessage {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+/* ==========================
+   Footer Links
+   ========================== */
+   
+footer{
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    width: 100%;
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    /* Height of the footer*/
+    height: 40px;
+}
+
+footer > a {
+    margin: 0;
+    padding: 0;
     text-decoration: none;
-    color:#184A45FF;
-    padding: 10px 20px 20px;
+    color: #ccc;
 }
 
-.headFlex{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+footer>a:hover span,
+footer>a:focus span{
+    display: none;
 }
 
-footer>a{
-    text-decoration: none;
-    color:#B0B8B4FF;
+footer>a:hover:before,
+footer>a:focus:before{ 
+    content: "Visit My Portfolio 🍌 / Game code: Unlock1218"
 }
 
-@media (max-width: 468px){
-    .headFlex{
-        margin-top: 20px;
-    }
+/* ==========================
+   Responsive Styles
+   ========================== */
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: 95%;
+  }
+  input[type="submit"],
+  input[type="button"] {
+    width: 100%;
+    font-size: 1.8rem;
+  }
+  input[type="text"] {
+    width: 100%;
+  }
 }
+
+@media (max-width: 468px) {
+  .headFlex {
+    margin-top: 20px;
+  }
+}
+
+

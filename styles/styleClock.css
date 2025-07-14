@@ -1,0 +1,30 @@
+li{
+    list-style-type: none;
+}
+.headFlex>li:nth-child(2)>a{
+    color:#B0B8B4FF !important;
+    background: #184A45FF;
+    padding-bottom: 20px;
+    border-radius: 15px 15px 0 0;
+}
+
+.homeList{
+    text-align: center;
+    margin-top: 30px;
+    line-height: 50px;
+}
+
+.headFlex>li:nth-child(1)>a,
+.headFlex>li:nth-child(3)>a{
+    border-radius: 15px 15px 0 0;
+    transition: 0.5s all ease-out;
+}
+
+.headFlex>li:nth-child(1)>a:hover,
+.headFlex>li:nth-child(3)>a:hover{
+    background: #B0B8B4FF;
+    padding-bottom: 18.3px;
+    border-radius: 15px 15px 0 0;
+    opacity: 0.8;
+    transition: 0.3s all ease-in;
+}

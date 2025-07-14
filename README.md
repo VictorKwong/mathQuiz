@@ -1,24 +1,24 @@
-# mathQuiz
+# mathQuiz (Jan 26, 2022)
 
-Design Documents
+## Overview
 
-1. Goal:
-    - Build a math quiz website (+ - *, / is a bit too hard without a calculator xD). It is a prototype website to see how it works.
+mathQuiz is a simple and interactive math quiz web application designed to help users practice basic addition and subtraction problems. It offers a clean, user-friendly interface and responsive design, making it accessible across devices.
 
-2. Features require:
-    - a welcome page
-    - math quiz game page
-    - reference page
-    - User can interact and play math quiz game (answering 5 questions)
-    - User can replay the game
-    - a bit CSS and design
-    - Responsive design
+---
 
-3. Tools:
-    - jQuery
-    - Node.js
-    - Github
-    - HTML, CSS, Javascript
+## Features
 
-4. Credit:
-    - Juno College - https://junocollege.com/
+- Welcome page with instructions and start button  
+- Interactive quiz with 5 questions per game  
+- Instant feedback on answers  
+- Replay functionality to try again  
+- Responsive layout for desktops, tablets, and mobiles  
+- Clean and modern UI design  
+
+---
+
+## Technologies Used
+
+- **Frontend:** HTML5, CSS3, JavaScript, jQuery  
+- **Backend:** Node.js (used for development and deployment)  
+- **Version Control:** Git & GitHub

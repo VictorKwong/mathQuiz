@@ -5,47 +5,140 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/stylehome.css">
+    <link rel="stylesheet" href="./styles/styleGame.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" integrity="sha384-v8BU367qNbs/aIZIxuivaU55N5GPF89WBerHoGA4QTcbUjYiLQtKdrfXnqAcXyTv" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chau+Philomene+One&display=swap" rel="stylesheet"> 
     <title>Math Quiz</title>
 </head>
 <body>
     <div class="pageFix">
         <div class="allWrapping">
-            <header>
-                <div class="wrapper">
-                    <h1>Math Quiz</h1>
-                    <nav>
-                        <ul class="headFlex">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="quiz.html">Quiz</a></li>
-                            <li><a href="reference.html">Reference</a></li>
-                        </ul>
-                    </nav>
+            <header class="mathHeader">
+                <div class="mathHeaderContent wrapper">
+                    <h1><a href="index.html">Math Quiz Challenge</a></h1>
+                </div>
+                <div class="mathHeaderWaves" aria-hidden="true">
+                <svg class="waveSVG" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                    <path id="wavePath" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="waveParallax">
+                    <use xlink:href="#wavePath" x="48" y="0" fill="rgba(18,51,47,0.7)" />
+                    <use xlink:href="#wavePath" x="48" y="3" fill="rgba(18,51,47,0.5)" />
+                    <use xlink:href="#wavePath" x="48" y="5" fill="rgba(18,51,47,0.3)" />
+                    <use xlink:href="#wavePath" x="48" y="7" fill="#12332F" />
+                    </g>
+                </svg>
                 </div>
             </header>
-                <div class="wrapper">
+            <div class="wrapper">
+                <div class="javaStartHUD">
+                    <button id="openSettings" title="Settings" class="settingsGear">⚙️</button>
+                    <p><strong>Ready to flex your brain?</strong> 🧠</p>
+                    <p>Take on fun, easy math challenges and beat your high score!</p>
+                    <input class="javaStartButton" type="button" value="Start Game">
+                </div>
 
-                    <div class="homeList">
-                        <h2>Digital Clock (tick tack tick...)</h2>
-                        <h3 id="javaClockDisplay"></h3>
+                <div class="javaGameHUD">
+                    <button id="openSettings" title="Settings" class="settingsGear">⚙️</button>
+                    <div class="hudTopBar">
+                        <p class="javaUserScore">Score: 0</p>
+                    </div>
+
+                    <div class="hudMain">
+                        <p class="javaQuestionTrack"></p>
+                        <p class="javaGameQuestion"></p>
+
+                        <label for="userAnswer" class="sr-only">Enter your answer</label>
+                        <input class="javaUserAnswer" id="userAnswer" type="text">
+
+                        <div class="hudButtons">
+                            <input type="submit" value="Submit" class="javaUserSubmit">
+                            <input type="submit" value="Next" class="javaUserNext">
+                        </div>
+
+                        <div class="javaGameResultWrapper">
+                            <p class="javaGameResult" aria-live="polite"></p>
+                        </div>
                     </div>
                 </div>
+
+                <div class="javaEndHUD">
+                    <button id="openSettings" title="Settings" class="settingsGear">⚙️</button>
+                    
+                    <div class="endContent">
+                        <h2 class="endTitle">🎉 Great Job!</h2>
+                        <p class="javaResultScore"></p>
+                        <p class="endMessage">Thanks for playing — ready for another round?</p>
+                        
+                        <input type="submit" value="🔁 Replay Game" class="javaUserReplay">
+                    </div>
+                </div>
+                <!-- Fullscreen overlay wrapper -->
+                <div class="volumeOverlayBackground" id="volumeOverlay">
+                    <!-- Your modal box -->
+                    <div class="volumeModalOverlay" id="volumeModal">
+                        <button class="closeModal" id="closeModal" aria-label="Close settings">×</button>
+
+                        <h2 class="modalTitle">Settings</h2>
+
+                        <div class="volumeGroup">
+                        <label for="bgmVolume">BGM Volume</label>
+                        <div class="volumeControls">
+                            <button id="bgmDown" class="volumeBtn">−</button>
+                            <span id="bgmLevel">5%</span>
+                            <button id="bgmUp" class="volumeBtn">+</button>
+                        </div>
+                        </div>
+
+                        <div class="volumeGroup">
+                        <label for="sfxVolume">SFX Volume</label>
+                        <div class="volumeControls">
+                            <button id="sfxDown" class="volumeBtn">−</button>
+                            <span id="sfxLevel">15%</span>
+                            <button id="sfxUp" class="volumeBtn">+</button>
+                        </div>
+                        </div>
+
+                        <button class="backBtn" id="backToGame">Back</button>
+                    </div>
+                </div>
+
+
+
+                <div id="uiBlocker" style="
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100vw; height: 100vh;
+                    background: rgba(0,0,0,0.3);
+                    z-index: 9999;
+                    display: none;
+                "></div>
+                
             </div>
         </div>
         <footer>
-            <a href="https://victorkaiwong.com/" target="_blank"><span>Copyright <i class="far fa-copyright"></i> 2022 Victor Wong</span></a>
+            <a href="https://victorkaiwong.com/" target="_blank"><span>Copyright <i class="far fa-copyright"></i> 2025 Victor Wong</span></a>
         </footer>
     </div>
+
 </body>
 </html>
+
+<audio id="javaMStart">
+    <source src="./music/GameStart.mp3" type="audio/mp3">
+</audio>
+<audio id="javaMStartHover">
+    <source src="./music/GameStartHover.wav" type="audio/wav">
+</audio>
+<audio id="javaMBgm">
+    <source src="./music/GameBgm.mp3" type="audio/mp3">
+</audio>
 <!-- jQuery -->
 <script
 src="https://code.jquery.com/jquery-3.6.0.js"
 integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 crossorigin="anonymous"></script>
-<script src="js/scriptClock.js"></script>
+<script src="js/script.js"></script>
