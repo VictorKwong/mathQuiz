@@ -5,7 +5,7 @@ mathApp.RandomSign = function(unique){
     return unique[randomIndex];
 }
 
-mathApp.easySign = [
+mathApp.Sign = [
     {
         visual: '➕',
         factor: '+'
@@ -19,61 +19,71 @@ mathApp.easySign = [
         factor: '*'
     }]
 
-mathApp.easyCalc = function(var1,var2,sign){
-    let ans = 0;
-    switch(sign){
-        case '+':
-            ans = var1 + var2;
-            return Number(ans);
-        case '-':
-            ans = var1 - var2;
-            return Number(ans);
-        case '*':
-            ans = var1 * var2;
-            return Number(ans);
-        case '/':
-            ans = var1 / var2;
-            if(!Number.isInteger(ans)){
-                ans = ans.toFixed(1);
-            }
-            return Number(ans);
+mathApp.easyCalc = function (a, b, sign) {
+    const operations = {
+        '+': a + b,
+        '-': a - b,
+        '*': a * b,
+        '/': a / b
+    };
+
+    let ans = operations[sign];
+    if (sign === '/' && !Number.isInteger(ans)) {
+        ans = Number(ans.toFixed(1));
     }
-}
-mathApp.easyLongCalc = function(var1,var2,var3,sign1,sign2){
-    let ans = 0;
-    switch(true){
-        case (sign1 === '+' && sign2 === '+'):
-            ans = var1 + var2 + var3;
-            return Number(ans);
-        case (sign1 === '+' && sign2 === '-'):
-            ans = var1 + var2 - var3;
-            return Number(ans);
-        case (sign1 === '+' && sign2 === '*'):
-            ans = var1 + var2 * var3;
-            return Number(ans);
-        case (sign1 === '-' && sign2 === '+'):
-            ans = var1 - var2 + var3;
-            return Number(ans);
-        case (sign1 === '-' && sign2 === '-'):
-            ans = var1 - var2 - var3;
-            return Number(ans);
-        case (sign1 === '-' && sign2 === '*'):
-            ans = var1 - var2 * var3;
-            return Number(ans);
-        case (sign1 === '*' && sign2 === '+'):
-            ans = var1 * var2 + var3;
-            return Number(ans);
-        case (sign1 === '*' && sign2 === '-'):
-            ans = var1 * var2 - var3;
-            return Number(ans);
-        case (sign1 === '*' && sign2 === '*'):
-            ans = var1 * var2 * var3;
-            return Number(ans);
+    return Number(ans);
+};
+
+
+mathApp.easyLongCalc = function (var1, var2, var3, sign1, sign2) {
+    const expression = `${var1} ${sign1} ${var2} ${sign2} ${var3}`;
+    let ans = eval(expression); 
+    if (!Number.isInteger(ans)) {
+        ans = Number(ans.toFixed(1));
     }
-}
+    return Number(ans);
+};
+
+mathApp.hardCalc = function (var1, var2, var3, sign1, sign2) {
+    const expression = `${var1} ${sign1} ${var2} ${sign2} ${var3}`;
+    let ans = eval(expression);
+    if (!Number.isInteger(ans)) {
+        ans = Number(ans.toFixed(1));
+    }
+    return Number(ans);
+};
+
+mathApp.hardLongCalc = function (var1, var2, var3, var4, sign1, sign2, sign3) {
+    const expression = `${var1} ${sign1} ${var2} ${sign2} ${var3} ${sign3} ${var4}`;
+    let ans = eval(expression);
+    if (!Number.isInteger(ans)) {
+        ans = Number(ans.toFixed(1));
+    }
+    return Number(ans);
+};
+
+mathApp.extremeCalc = function (var1, var2, var3, var4, sign1, sign2, sign3) {
+    const expression = `${var1} ${sign1} ${var2} ${sign2} ${var3} ${sign3} ${var4}`;
+    let ans = eval(expression);
+    if (!Number.isInteger(ans)) {
+        ans = Number(ans.toFixed(1));
+    }
+    return Number(ans);
+};
+
+mathApp.extremeLongCalc = function (var1, var2, var3, var4, var5, sign1, sign2, sign3, sign4) {
+    const expression = `${var1} ${sign1} ${var2} ${sign2} ${var3} ${sign3} ${var4} ${sign4} ${var5} `;
+    let ans = eval(expression);
+    if (!Number.isInteger(ans)) {
+        ans = Number(ans.toFixed(1));
+    }
+    return Number(ans);
+};
+
 
 mathApp.TotalScore = 0;
 mathApp.TotalQuestion = 0;
+mathApp.currentDifficulty = '';
 
 mathApp.scoreBoard = function(){
     mathApp.TotalScore++;
@@ -81,10 +91,10 @@ mathApp.scoreBoard = function(){
 }
 
 mathApp.start = $('.javaStartButton').on('click', function () {
-    // Block user interactions
-    $('#uiBlocker').show();
+    mathApp.currentDifficulty = $(this).data('difficulty')
 
-    // Animate start HUD out
+    $('#uiBlocker').show(); // Block user interactions
+
     $('.javaStartHUD')
         .addClass('transition-hide')
         .delay(100)
@@ -93,32 +103,27 @@ mathApp.start = $('.javaStartButton').on('click', function () {
             next();
         });
 
-    // Wait for exit animation, then show game HUD
     setTimeout(() => {
         $('.javaStartHUD').hide();
 
-        // Show game HUD with animation
         $('.javaGameHUD')
             .css('display', 'flex')
             .addClass('show');
 
         // Reset state
-        mathApp.TotalQuestion++;
+        mathApp.TotalQuestion = 1;
         $('.javaQuestionTrack').html(`Question ${mathApp.TotalQuestion}:`);
         $('.javaUserAnswer').val('');
         $('.javaGameResult').hide();
 
-        let x = Math.floor(Math.random() * 10) + 1,
-            y = Math.floor(Math.random() * 10) + 1;
-        let questionSign = mathApp.RandomSign(mathApp.easySign);
+        // Generate question based on difficulty
+        generateQuestion();
 
-        $('.javaGameQuestion').show().html(`${x} ${questionSign.visual} ${y} = <span>?</span>`);
-        mathApp.computerAnswer = mathApp.easyCalc(x, y, questionSign.factor);
-
-        // Unblock interactions
-        $('#uiBlocker').fadeOut(200);
-    }, 500); // Matches CSS transition time
+        $('#uiBlocker').fadeOut(200); // Unblock
+    }, 500);
 });
+
+
 
 mathApp.Submit = $('.javaUserSubmit').on('click', function() {
     let rawInput = $('.javaUserAnswer').val().trim();
@@ -191,26 +196,83 @@ function showEndScreen() {
     });
 }
 
-function generateQuestion() {
-    const rand = Math.random();
-    const x = getRandomNumber();
-    const y = getRandomNumber();
-
-    if (rand <= 0.5) {
-        // Simple question
-        const sign = mathApp.RandomSign(mathApp.easySign);
-        displayQuestion(`${x} ${sign.visual} ${y} = <span>?</span>`);
-        mathApp.computerAnswer = mathApp.easyCalc(x, y, sign.factor);
-    } else {
-        // More complex question
-        const z = getRandomNumber();
-        const sign1 = mathApp.RandomSign(mathApp.easySign);
-        const sign2 = mathApp.RandomSign(mathApp.easySign);
-        displayQuestion(`${x} ${sign1.visual} ${y} ${sign2.visual} ${z} = <span>?</span>`);
-        mathApp.computerAnswer = mathApp.easyLongCalc(x, y, z, sign1.factor, sign2.factor);
+function getRandomNumber() {
+    if (mathApp.currentDifficulty === 'hard') {
+        return Math.floor(Math.random() * 50) + 1;
+    } else if (mathApp.currentDifficulty === 'extreme') {
+        return Math.floor(Math.random() * 100) + 1;
     }
+    return Math.floor(Math.random() * 10) + 1; // easy
 }
 
+function generateQuestion() {
+    const difficulty = mathApp.currentDifficulty || 'easy';
+    const rand = Math.random();
+
+    let numbers = [];
+    let signs = [];
+
+    if (difficulty === 'easy') {
+        if (rand <= 0.5) {
+            // x sign y
+            const x = getRandomNumber();
+            const y = getRandomNumber();
+            const sign = mathApp.RandomSign(mathApp.Sign);
+            displayQuestion(`${x} ${sign.visual} ${y} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.easyCalc(x, y, sign.factor);
+            return;
+        } else {
+            // x sign y sign z
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.easyLongCalc(numbers[0], numbers[1], numbers[2], signs[0].factor, signs[1].factor);
+            return;
+        }
+
+    } else if (difficulty === 'hard') {
+        if (rand <= 0.5) {
+            // x sign y sign z
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.hardCalc(numbers[0], numbers[1], numbers[2], signs[0].factor, signs[1].factor);
+            return;
+        } else {
+            // x sign y sign z sign i
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} ${signs[2].visual} ${numbers[3]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.hardLongCalc(numbers[0], numbers[1], numbers[2], numbers[3], signs[0].factor, signs[1].factor, signs[2].factor);
+            return;
+        }
+
+    } else if (difficulty === 'extreme') {
+        if (rand <= 0.5) {
+            // x sign y sign z sign i
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} ${signs[2].visual} ${numbers[3]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.extremeCalc(numbers[0], numbers[1], numbers[2], numbers[3], signs[0].factor, signs[1].factor, signs[2].factor);
+            return;
+        } else {
+            // x sign y sign z sign i sign k
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [
+                mathApp.RandomSign(mathApp.Sign),
+                mathApp.RandomSign(mathApp.Sign),
+                mathApp.RandomSign(mathApp.Sign),
+                mathApp.RandomSign(mathApp.Sign)
+            ];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} ${signs[2].visual} ${numbers[3]} ${signs[3].visual} ${numbers[4]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.extremeLongCalc(
+                numbers[0], numbers[1], numbers[2], numbers[3], numbers[4],
+                signs[0].factor, signs[1].factor, signs[2].factor, signs[3].factor
+            );
+            return;
+        }
+    }
+}
 function displayQuestion(html) {
     $('.javaGameQuestion')
         .hide()
@@ -219,6 +281,12 @@ function displayQuestion(html) {
 }
 
 function getRandomNumber() {
+    if (mathApp.currentDifficulty === 'hard') {
+        return Math.floor(Math.random() * 50) + 1;
+    } else if (mathApp.currentDifficulty === 'extreme') {
+        return Math.floor(Math.random() * 100) + 1;
+    }
+    // Default: easy
     return Math.floor(Math.random() * 10) + 1;
 }
 
@@ -236,13 +304,13 @@ mathApp.Restart = $('.javaUserReplay').on('click',function(){
 
 
 //Audio Part
-$('.javaStartButton, .javaUserSubmit, .javaUserReplay, .javaUserNext').mouseenter(function(){
+$('.javaUserSubmit, .javaUserReplay, .javaUserNext').mouseenter(function(){
     audioHover = document.getElementById('javaMStartHover');
     audioHover.volume = mathApp.sfxVolume;
     audioHover.play();
 })
 
-$('.javaStartButton, .javaUserSubmit, .javaUserReplay, .javaUserNext').mouseleave(function(){
+$('.javaUserSubmit, .javaUserReplay, .javaUserNext').mouseleave(function(){
     audioHover = document.getElementById('javaMStartHover');
     audioHover.pause();
     audioHover.currentTime = 0;
