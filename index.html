@@ -37,10 +37,10 @@
                 <div class="javaStartHUD">
                     <button class="settingsGear openSettings" title="Settings">⚙️</button>
                     <p><strong>Ready to flex your brain?</strong> 🧠</p>
-                    <p>Take on fun, easy math challenges and beat your high score!</p>
-                    <!-- <input class="javaStartButton" type="button" value="Start Game"> -->
+                    <p><small>Answer quickly for bonus points and build streaks to multiply your score!</small></p>
                     <input class="javaStartButton" type="button" value="Easy" data-difficulty="easy">
-                    <input class="javaStartButton" type="button" value="Hard" data-difficulty="hard">
+                    <input class="javaStartButton hardMode" type="button" value="Hard" data-difficulty="hard">
+                    <input class="javaStartButton extremeMode" type="button" value="Extreme" data-difficulty="extreme" hidden>
                 </div>
 
                 <div class="javaGameHUD">
@@ -107,9 +107,6 @@
                         <button class="backBtn" id="backToGame">Back</button>
                     </div>
                 </div>
-
-
-
                 <div id="uiBlocker" style="
                     position: fixed;
                     top: 0; left: 0;
@@ -118,7 +115,14 @@
                     z-index: 9999;
                     display: none;
                 "></div>
-                
+                <div id="fireworksContainer" class="hidden">
+                    <div class="firework"></div>
+                    <div class="firework"></div>
+                    <div class="firework"></div>
+                    <div class="firework"></div>
+                    <div class="firework"></div>
+                </div>
+
             </div>
         </div>
         <footer>
