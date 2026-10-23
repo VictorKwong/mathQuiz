@@ -394,16 +394,6 @@ function displayQuestion(html) {
         .fadeIn(200);
 }
 
-function getRandomNumber() {
-    if (mathApp.currentDifficulty === 'hard') {
-        return Math.floor(Math.random() * 50) + 1;
-    } else if (mathApp.currentDifficulty === 'extreme') {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-    // Default: easy
-    return Math.floor(Math.random() * 10) + 1;
-}
-
 function triggerEasterEgg(count = 20) {
   const container = document.getElementById("fireworksContainer");
   if (!container) return;
