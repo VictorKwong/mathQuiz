@@ -306,15 +306,86 @@ function showEndScreen() {
 }
 function getRandomNumber() {
     if (mathApp.currentDifficulty === 'hard') {
-        return Math.floor(Math.random() * 50) + 1;
+        return Math.floor(Math.random() * 15) + 1; // Hard 1-15
     } else if (mathApp.currentDifficulty === 'extreme') {
-        return Math.floor(Math.random() * 100) + 1;
+        return Math.floor(Math.random() * 20) + 1; // Extreme 1-20
     }
-    return Math.floor(Math.random() * 10) + 1; // easy
+
+    return Math.floor(Math.random() * 10) + 1; // Easy 1-10
 }
 
-    
+function generateQuestion() {
+    mathApp.startQuestionTimer();
+    const difficulty = mathApp.currentDifficulty || 'easy';
+    const rand = Math.random();
+
+    let numbers = [];
+    let signs = [];
+
+    if (difficulty === 'easy') {
+        if (rand <= 0.5) {
+            // x sign y
+            const x = getRandomNumber();
+            const y = getRandomNumber();
+            const sign = mathApp.RandomSign(mathApp.Sign);
+            displayQuestion(`${x} ${sign.visual} ${y} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.easyCalc(x, y, sign.factor);
+            return;
+        } else {
+            // x sign y sign z
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.easyLongCalc(numbers[0], numbers[1], numbers[2], signs[0].factor, signs[1].factor);
+            return;
+        }
+
+    } else if (difficulty === 'hard') {
+        if (rand <= 0.5) {
+            // x sign y sign z
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.hardCalc(numbers[0], numbers[1], numbers[2], signs[0].factor, signs[1].factor);
+            return;
+        } else {
+            // x sign y sign z sign i
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} ${signs[2].visual} ${numbers[3]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.hardLongCalc(numbers[0], numbers[1], numbers[2], numbers[3], signs[0].factor, signs[1].factor, signs[2].factor);
+            return;
+        }
+
+    } else if (difficulty === 'extreme') {
+        if (rand <= 0.5) {
+            // x sign y sign z sign i
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign), mathApp.RandomSign(mathApp.Sign)];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} ${signs[2].visual} ${numbers[3]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.extremeCalc(numbers[0], numbers[1], numbers[2], numbers[3], signs[0].factor, signs[1].factor, signs[2].factor);
+            return;
+        } else {
+            // x sign y sign z sign i sign k
+            numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()];
+            signs = [
+                mathApp.RandomSign(mathApp.Sign),
+                mathApp.RandomSign(mathApp.Sign),
+                mathApp.RandomSign(mathApp.Sign),
+                mathApp.RandomSign(mathApp.Sign)
+            ];
+            displayQuestion(`${numbers[0]} ${signs[0].visual} ${numbers[1]} ${signs[1].visual} ${numbers[2]} ${signs[2].visual} ${numbers[3]} ${signs[3].visual} ${numbers[4]} = <span>?</span>`);
+            mathApp.computerAnswer = mathApp.extremeLongCalc(
+                numbers[0], numbers[1], numbers[2], numbers[3], numbers[4],
+                signs[0].factor, signs[1].factor, signs[2].factor, signs[3].factor
+            );
+            return;
+        }
+    }
 }
+
+
+
 function displayQuestion(html) {
     $('.javaGameQuestion')
         .hide()
@@ -324,12 +395,12 @@ function displayQuestion(html) {
 
 function getRandomNumber() {
     if (mathApp.currentDifficulty === 'hard') {
-        return Math.floor(Math.random() * 15) + 1; // Hard 1-15
+        return Math.floor(Math.random() * 50) + 1;
     } else if (mathApp.currentDifficulty === 'extreme') {
-        return Math.floor(Math.random() * 20) + 1; // Extreme 1-20
+        return Math.floor(Math.random() * 100) + 1;
     }
-
-    return Math.floor(Math.random() * 10) + 1; // Easy 1-10
+    // Default: easy
+    return Math.floor(Math.random() * 10) + 1;
 }
 
 function triggerEasterEgg(count = 20) {
