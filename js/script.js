@@ -304,6 +304,7 @@ function showEndScreen() {
             .html(`Your Score: ${mathApp.TotalScore}`);
     });
 }
+
 function getRandomNumber() {
     if (mathApp.currentDifficulty === 'hard') {
         return Math.floor(Math.random() * 15) + 1; // Hard 1-15
